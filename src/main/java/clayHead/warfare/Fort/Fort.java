@@ -4,13 +4,20 @@ import clayHead.warfare.BattlefieldEntity;
 
 public abstract class Fort extends BattlefieldEntity {
     public String getSubType() { return "Fort"; }
+    
+    /*
+     * These functions are so functionality of previosly exsisting code before the battlefieldentity class is okay
+     */
     public String getType() { return "Fort"; }
     public String getAncestry() { return "None"; }
+    public boolean moraleCheck(int DC) {return false; }
+    protected boolean isExhausted() {return false; }
+    protected void refresh() {}
 
     protected int level;
     int moralBonus;
 
-    public Fort() {}
+    public Fort() {this.name = "Fort";}
     
     public int getDefense() { return 0; }
 

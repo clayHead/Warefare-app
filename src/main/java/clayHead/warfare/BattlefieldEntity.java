@@ -54,4 +54,10 @@ public abstract class BattlefieldEntity {
      * Internal function to increment die
      */
     protected abstract void incrementDie();
+    
+    public abstract boolean moraleCheck(int DC);
+    
+    protected abstract boolean isExhausted();
+    
+    protected abstract void refresh();
 }

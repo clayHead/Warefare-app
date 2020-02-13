@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import clayHead.warfare.*;
 import clayHead.warfare.Ancestry.*;
+import clayHead.warfare.Fort.*;
 
 public class AttackTest extends TestCase {
 	Unit test = new Human();
@@ -22,6 +23,8 @@ public class AttackTest extends TestCase {
 
     Army testArmy = new Army();
     Army testArmy_2 = new Army();
+    
+    Fort fort = new Keep();
 
 	protected void setUp() throws Exception {
 		testArmy.add(test);
@@ -37,6 +40,7 @@ public class AttackTest extends TestCase {
         testArmy_2.add(test_Cavalry_2);
         testArmy_2.add(test_Airborne_2);
         testArmy_2.add(test_Siege_2);
+        testArmy_2.add(fort);
 	}
 
 	protected void tearDown() throws Exception {
@@ -116,6 +120,10 @@ public class AttackTest extends TestCase {
         
         // levy to siege w/o cavalry
         assertTrue(Attack.testValidAttack());
+        
+        // levy to fort
+        Attack.setSecondary(fort);
+        assertFalse(Attack.testValidAttack());
 	}
 	
 	public void testTestValidAttackInfantry() {
@@ -188,6 +196,10 @@ public class AttackTest extends TestCase {
         
         // infantry to siege w/o cavalry
         assertTrue(Attack.testValidAttack());
+        
+     // infantry to fort
+        Attack.setSecondary(fort);
+        assertFalse(Attack.testValidAttack());
 	}
 
 	public void testTestValidAttackArcher() {
@@ -232,6 +244,10 @@ public class AttackTest extends TestCase {
 		// archer to siege w/o cavalry
 		testArmy_2.remove(test_Cavalry_2);
 		assertTrue(Attack.testValidAttack());
+		
+		// archer to fort
+        Attack.setSecondary(fort);
+        assertFalse(Attack.testValidAttack());
 	}
 
 	public void testTestValidAttackCavalry() {
@@ -276,6 +292,10 @@ public class AttackTest extends TestCase {
 		// cavalry to siege w/o cavalry
 		testArmy_2.remove(test_Cavalry_2);
 		assertTrue(Attack.testValidAttack());
+		
+		// cavalry to fort
+        Attack.setSecondary(fort);
+        assertFalse(Attack.testValidAttack());
 	}
 	
 	public void testTestValidAttackAirborne() {
@@ -300,10 +320,10 @@ public class AttackTest extends TestCase {
 		// airborne to airborne
 		Attack.setSecondary(test_Airborne_2);
 		assertTrue(Attack.testValidAttack());
-		
+        
 		// airborne to siege
 		Attack.setSecondary(test_Siege_2);
-		assertFalse(Attack.testValidAttack());
+		assertFalse(Attack.testValidAttack());		
 		
 		// airborne to siege w/o levies
 		testArmy_2.remove(test_2);
@@ -320,6 +340,10 @@ public class AttackTest extends TestCase {
 		// airborne to siege w/o cavalry
 		testArmy_2.remove(test_Cavalry_2);
 		assertTrue(Attack.testValidAttack());
+		
+		// airborne to fort
+        Attack.setSecondary(fort);
+        assertFalse(Attack.testValidAttack());
 	}
 	
 	public void testTestValidAttackSiege() {
@@ -348,5 +372,9 @@ public class AttackTest extends TestCase {
 		// siege to siege
 		Attack.setSecondary(test_Siege_2);
 		assertFalse(Attack.testValidAttack());
+		
+		// siege to fort
+        Attack.setSecondary(fort);
+        assertTrue(Attack.testValidAttack());
 	}
 }

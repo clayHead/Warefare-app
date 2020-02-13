@@ -2,6 +2,7 @@ package clayHead.warfare.Fort;
 
 public class Tower extends Fort {
     public Tower() {
+    	this.name = "Tower";
         this.level = 1;
         this.sizeMax = 4;
         this.moralBonus = 1;

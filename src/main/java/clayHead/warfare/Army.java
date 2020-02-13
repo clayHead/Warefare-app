@@ -4,28 +4,28 @@ import java.util.ArrayList;
 
 public class Army {
     private int size;
-    private ArrayList<Unit> units;
-    private ArrayList<Unit> levies;
-    private ArrayList<Unit> infantry;
-    private ArrayList<Unit> archers;
-    private ArrayList<Unit> cavalry;
+    private ArrayList<BattlefieldEntity> units;
+    private ArrayList<BattlefieldEntity> levies;
+    private ArrayList<BattlefieldEntity> infantry;
+    private ArrayList<BattlefieldEntity> archers;
+    private ArrayList<BattlefieldEntity> cavalry;
     private String name;
 
     private boolean allFresh = true;
 
     // Default constructor
     public Army() {
-        this.units = new ArrayList<Unit>();
-        this.levies = new ArrayList<Unit>();
-        this.infantry = new ArrayList<Unit>();
-        this.archers = new ArrayList<Unit>();
-        this.cavalry = new ArrayList<Unit>();
+        this.units = new ArrayList<BattlefieldEntity>();
+        this.levies = new ArrayList<BattlefieldEntity>();
+        this.infantry = new ArrayList<BattlefieldEntity>();
+        this.archers = new ArrayList<BattlefieldEntity>();
+        this.cavalry = new ArrayList<BattlefieldEntity>();
         this.name = "Default Army";
     }
     
     public String toString() {
     	String returnVal =  this.name + " an army consisting of, \n";
-    	for (Unit unit : units) {
+    	for (BattlefieldEntity unit : units) {
     		returnVal += unit.toString();
     		returnVal += "\n";
     	}
@@ -38,7 +38,7 @@ public class Army {
      */
     public void retreat() {
         if (this.allFresh()) {
-            for(Unit unit : units) {
+            for(BattlefieldEntity unit : units) {
                 unit.moraleCheck(15);
             }
             // TODO Remove from battle
@@ -50,7 +50,7 @@ public class Army {
      * @return if all units are fresh
      */
     private boolean areFresh() {
-        for (Unit unit : units) if (unit.isExhausted()) {
+        for (BattlefieldEntity unit : units) if (unit.isExhausted()) {
             this.allFresh = false;
             return false;
         }
@@ -61,7 +61,7 @@ public class Army {
      * Refreshes all units. Called once all units are exhausted during battle.
      */
     private void refreshAll() {
-        for (Unit unit : units) unit.refresh();
+        for (BattlefieldEntity unit : units) unit.refresh();
         allFresh = true;
     }
 
@@ -71,7 +71,7 @@ public class Army {
      * Operates in time O(x) because the name checking most itterate through all units
      * @param unit Unit to be added
      */
-    public void add(Unit unit) { 
+    public void add(BattlefieldEntity unit) { 
         if (checkName(unit.getName())) {
             unit.setArmy(this);
             this.units.add(unit);
@@ -93,7 +93,7 @@ public class Army {
      * @return if there is no other name
      */
     private boolean checkName(String name) {
-        for (Unit unit : this.units) {
+        for (BattlefieldEntity unit : this.units) {
             if (name.equals(unit.getName())) return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class Army {
      * Removes a unit from the Arraylist. Used when a unit is defeated in battle.
      * @param unit Unit to be removed
      */
-    public void remove(Unit unit) { 
+    public void remove(BattlefieldEntity unit) { 
         this.units.remove(unit);
         String type = unit.getType();
         if (type.equals("Levies")) this.levies.remove(unit);

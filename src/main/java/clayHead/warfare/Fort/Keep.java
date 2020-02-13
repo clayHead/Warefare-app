@@ -2,6 +2,7 @@ package clayHead.warfare.Fort;
 
 public class Keep extends Fort {
     public Keep() {
+    	this.name = "Keep";
         this.level = 1;
         this.sizeMax = 6; 
         this.moralBonus = 2; 
