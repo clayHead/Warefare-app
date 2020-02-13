@@ -9,7 +9,6 @@ public abstract class Unit extends BattlefieldEntity {
 
     protected int attackBonus = 0;
     protected int powerBonus = 0;
-    protected int defense = 10;
     protected int moraleBonus = 0;
     protected double cost = 0;
     protected boolean diminished;
@@ -27,8 +26,6 @@ public abstract class Unit extends BattlefieldEntity {
     public String getExperience() { return this.experience.getExperience(); }
 
     public String getEquipment() { return this.equipment.getEquipment(); }
-
-    public int getToughness() { return this.toughness; }
 
     public int getDefense() { return this.defense; }
 
@@ -166,7 +163,7 @@ public abstract class Unit extends BattlefieldEntity {
      * @param other Unit to attack
      * @return if attack and power check succeed. 
      */
-    public boolean attack(Unit other) {
+    public boolean attack(BattlefieldEntity other) {
         if (!this.isExhausted() || !this.engaged || (this.engagedPointer == other)) {
             this.exhausted = true;
             int roll = Dice.roll(this.attackBonus);
@@ -183,7 +180,7 @@ public abstract class Unit extends BattlefieldEntity {
      * @param advantage True for advantage, false for disadvantage.
      * @return if power and attack check succeeds
      */
-    public boolean attack(Unit other, boolean advantage) {
+    public boolean attack(BattlefieldEntity other, boolean advantage) {
         if (!this.isExhausted() || !this.engaged || (this.engagedPointer == other)) {
             this.exhausted = true;
             int roll = Dice.rollAdvantage(this.attackBonus, advantage);
@@ -358,6 +355,11 @@ public abstract class Unit extends BattlefieldEntity {
      * @param bool new status if unit is engaged.
      */
     private void setEngaging(boolean bool) { this.engaging = bool; }
+    
+    public void testEngaged(boolean bool, Unit unit) {
+    	this.setEngaged(bool);
+    	this.setEngagedPointer(unit);
+    }
 
     /**
      * Internal function to calculate the cost of the unit based off the rules.

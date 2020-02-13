@@ -13,7 +13,7 @@ public class Attack extends Order {
     static void setDisadvantage(boolean bool) { advantage = bool; } 
     
     // returns true if attack succeeded, false if not
-    public static boolean attack(Unit attacker, Unit defender) {
+    public static boolean attack(Unit attacker, BattlefieldEntity defender) {
         setPrimary(attacker);
         setSecondary(defender);
         if(isValidAttack()) {
@@ -58,10 +58,6 @@ public class Attack extends Order {
         // Are there cavalry?
         boolean cavalry = defenders.areCavalry();
 
-        // Is the target a fort?
-        // TODO Check fort flag
-        boolean fort = false;
-
         // First, if the unit has horrify and the unit is green or regular, if they aren't eternal, they fail
         if (Ancestry.isHorify(secondary)) {
             if (!Ancestry.isEternal(primary) || primary.getExperience().equals("Green") || primary.getExperience().equals("Regular")) {
@@ -69,7 +65,7 @@ public class Attack extends Order {
             }
         }
         // Go defending type by defending type by Xcel chart to check logic
-        if (fort) {
+        if (secondary.getType().equals("Fort")) {
             // Only Siege Engines can attack forts
             if (primary.getType().equals("Siege Engine")) return true;
             else return false;
@@ -97,7 +93,7 @@ public class Attack extends Order {
                 return true;
             }
             // Cavalry and Airborne attack cavalry normally (not checking turns right here for cavalry)
-            else if (primary.getType().equals("Ariborne") || (primary.getType().equals("Cavalry"))) {
+            else if (primary.getType().equals("Airborne") || (primary.getType().equals("Cavalry"))) {
                 return true;
             }
             // if a unit is engaged with the cavalry, they may attack
@@ -114,7 +110,7 @@ public class Attack extends Order {
         }
         else if (secondary.getType().equals("Infantry")) {
             // Infantry can be attacked by anyone except if attacker is levies there cannot be those types on field
-            if (primary.getType().equals("Levies") || primary.getType().equals("Infantry")) {
+        	if (primary.getType().equals("Levies") || primary.getType().equals("Infantry")) {	
                 if (levies) return false;
             }
             return true;

@@ -1,6 +1,7 @@
 package clayHead.warfare;
 
 public abstract class BattlefieldEntity {
+	protected int defense = 10;
     protected int toughness = 10;
     protected int sizeCurrent;
     protected int sizeMax;
@@ -13,6 +14,10 @@ public abstract class BattlefieldEntity {
 
     public int getToughness() { return this.toughness; }
 
+    public abstract int getDefense();
+    
+    public abstract String getAncestry();
+
     public int getSize() { return this.sizeCurrent; }
 
     public Army getArmy() { return this.army; }
@@ -22,6 +27,8 @@ public abstract class BattlefieldEntity {
     public String getName() { return this.name; }
 
     protected void setName(String name) { this.name = name; }
+    
+    public abstract String getType();
 
     /**
      * Function to take a Casualty. 

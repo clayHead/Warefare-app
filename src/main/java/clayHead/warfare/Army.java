@@ -22,6 +22,15 @@ public class Army {
         this.cavalry = new ArrayList<Unit>();
         this.name = "Default Army";
     }
+    
+    public String toString() {
+    	String returnVal =  this.name + " an army consisting of, \n";
+    	for (Unit unit : units) {
+    		returnVal += unit.toString();
+    		returnVal += "\n";
+    	}
+    	return returnVal;
+    }
 
     /**
      * Call a retreat on the Army. Only able to if all units are fresh.
@@ -32,7 +41,7 @@ public class Army {
             for(Unit unit : units) {
                 unit.moraleCheck(15);
             }
-            //TODO Remove from battle
+            // TODO Remove from battle
         }
     }
 
@@ -67,7 +76,7 @@ public class Army {
             unit.setArmy(this);
             this.units.add(unit);
             String type = unit.getType();
-            if (type.equals("Levy")) this.levies.add(unit);
+            if (type.equals("Levies")) this.levies.add(unit);
             else if (type.equals("Infantry")) this.infantry.add(unit);
             else if (type.equals("Archers")) this.archers.add(unit);
             else if (type.equals("Cavalry")) this.cavalry.add(unit);
@@ -97,7 +106,7 @@ public class Army {
     public void remove(Unit unit) { 
         this.units.remove(unit);
         String type = unit.getType();
-        if (type.equals("Levy")) this.levies.remove(unit);
+        if (type.equals("Levies")) this.levies.remove(unit);
         else if (type.equals("Infantry")) this.infantry.remove(unit);
         else if (type.equals("Archers")) this.archers.remove(unit);
         else if (type.equals("Cavalry")) this.cavalry.remove(unit);
